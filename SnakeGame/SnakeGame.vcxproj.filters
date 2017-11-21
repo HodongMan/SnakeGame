@@ -26,5 +26,8 @@
     <ClInclude Include="view.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="snake.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,15 @@
 #include<stdio.h>
 #include"view.h"
 
+inline void moveCursor(int xPos, int yPos) {
+
+	COORD position;
+	position.X = xPos;
+	position.Y = yPos;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
+}
+
+
 void drawMap() {
 
 	int xPos, yPos;

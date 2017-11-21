@@ -1,29 +1,14 @@
-#include<stdio.h>
-
 #include"view.h"
-
-
+#include"snake.h"
 
 int main()
 {
-	/*
-	int c;
-
-	while (1) {
-		if (_kbhit()) {
-			 c = _getch();
-			 if (c == 224 || c == 0) {
-				 printf("%d", _getch());
-			 }
-			 else {
-				 printf("%d", c);
-			 }
-			
-		}
-		
-	}
-	*/
+	
 	drawMap();
+	Snake* snake = initializeSnake();
+	while (1) {
+		moveSnake(snake);
+	}
 	return 0;
 	
 }
