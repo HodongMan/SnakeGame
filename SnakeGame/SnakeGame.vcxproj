@@ -115,6 +115,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="snake.c" />
     <ClCompile Include="view.c" />
   </ItemGroup>
   <ItemGroup>
