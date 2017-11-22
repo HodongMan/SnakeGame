@@ -16,5 +16,4 @@ void moveCursor(int xPos, int yPos);
 void drawMap();
 
 
-
 #endif

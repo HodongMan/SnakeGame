@@ -13,19 +13,32 @@
 #define ESC 27
 #define PAUSE 112
 
-typedef struct {
+
+typedef struct _snakeElem{
+
 	unsigned int xPos;
 	unsigned int yPos;
+	struct _snakeElem* prev;
+	struct _snakeElem* next;
+
+}snakeElem;
+
+typedef struct {
+
+	snakeElem* head;
+	snakeElem* tail;
 }Snake;
 
-Snake * initializeSnake();
-void moveSnake(Snake * snake);
+Snake* InitializeSnake();
+snakeElem* makeSnakeElem();
+void moveSnake(snakeElem* snake);
+int isSnakeInTheMap(snakeElem* snake);
 
 
-static inline void moveUp(Snake * snake);
-static inline void moveDown(Snake * snake);
-static inline void moveLeft(Snake * snake);
-static inline void moveRight(Snake * snake);
+static inline void moveUp(snakeElem * snake);
+static inline void moveDown(snakeElem * snake);
+static inline void moveLeft(snakeElem * snake);
+static inline void moveRight(snakeElem * snake);
 
 
 #endif

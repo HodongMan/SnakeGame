@@ -3,11 +3,14 @@
 
 int main()
 {
-	
+	int isInTheMap = 0;
 	drawMap();
-	Snake* snake = initializeSnake();
+	Snake* snake = InitializeSnake();
 	while (1) {
-		moveSnake(snake);
+		moveSnake(snake->head);
+		if (!isSnakeInTheMap(snake->head)) {
+			break;
+		}
 	}
 	return 0;
 	

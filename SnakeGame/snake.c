@@ -1,52 +1,76 @@
 #include"snake.h"
 
 
-Snake * initializeSnake() {
+snakeElem * makeSnakeElem(int xPos, int yPos) {
 
-	Snake* snake = (Snake*)malloc(sizeof(Snake));
-	snake->xPos = BACKGROUNDRIGHTDOWNXPOS + 1;
-	snake->yPos = BACKGROUNDRIGHTDOWNYPOS / 2;
+	snakeElem* snake = (snakeElem*)malloc(sizeof(snakeElem));
+	snake->xPos = xPos;
+	snake->yPos = yPos;
+	snake->prev = NULL;
+	snake->next = NULL;
 	moveCursor(snake->xPos, snake->yPos);
+
 	printf("бс");
 	return snake;
 }
 
+Snake* InitializeSnake() {
+	
+	Snake * snake = (Snake*)malloc(sizeof(Snake));
+	snakeElem* firstSnakeElem = makeSnakeElem(BACKGROUNDRIGHTDOWNXPOS + 1, BACKGROUNDRIGHTDOWNYPOS / 2);
+	snake->head = firstSnakeElem;
+	snake->tail = firstSnakeElem;
 
-void moveSnake(Snake * snake) {
+	return snake;
+}
+
+
+void moveSnake(snakeElem * snake) {
 
 	int pressed_key;
 
-	while (1) {
-		if (_kbhit()) {
+	
+	if (_kbhit()) {
+		pressed_key = _getch();
+		if (pressed_key == 224 || pressed_key == 0) {
 			pressed_key = _getch();
-			if (pressed_key == 224 || pressed_key == 0) {
-				pressed_key = _getch();
-				switch (pressed_key) {
+			switch (pressed_key) {
 
-				case LEFT:
-					moveLeft(snake);
-					break;
-				case RIGHT:
-					moveRight(snake);
-					break;
-				case UP:
-					moveUp(snake);
-					break;
-				case DOWN:
-					moveDown(snake);
-					break;
-				default:
-					break;
-				}
-			}
-			else {
-
+			case LEFT:
+				moveLeft(snake);
+				break;
+			case RIGHT:
+				moveRight(snake);
+				break;
+			case UP:
+				moveUp(snake);
+				break;
+			case DOWN:
+				moveDown(snake);
+				break;
+			default:
+				break;
 			}
 		}
+		else {
+
+		}
 	}
+	
 }
 
-static inline void moveUp(Snake * snake) {
+int isSnakeInTheMap(snakeElem* snake) {
+
+	if ((snake->xPos >= (BACKGROUNDRIGHTDOWNXPOS * 2 - 10)) || (snake->xPos <= BACKGROUNDLEFTUPXPOS)) {
+		return FALSE;
+	}
+	else if ((snake->yPos >= BACKGROUNDRIGHTDOWNYPOS) || (snake->yPos <= BACKGROUNDLEFTUPYPOS)) {
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static inline void moveUp(snakeElem * snake) {
 	moveCursor(snake->xPos, snake->yPos);
 	printf("  ");
 	snake->yPos -= 1;
@@ -54,7 +78,7 @@ static inline void moveUp(Snake * snake) {
 	printf("бс");
 }
 
-static inline void moveDown(Snake * snake) {
+static inline void moveDown(snakeElem * snake) {
 	moveCursor(snake->xPos, snake->yPos);
 	printf("  ");
 	snake->yPos += 1;
@@ -62,7 +86,7 @@ static inline void moveDown(Snake * snake) {
 	printf("бс");
 }
 
-static inline void moveRight(Snake * snake) {
+static inline void moveRight(snakeElem * snake) {
 	moveCursor(snake->xPos, snake->yPos);
 	printf("  ");
 	printf("бс");
@@ -70,7 +94,7 @@ static inline void moveRight(Snake * snake) {
 	moveCursor(snake->xPos, snake->yPos);
 }
 
-static inline void moveLeft(Snake * snake) {
+static inline void moveLeft(snakeElem * snake) {
 	moveCursor(snake->xPos, snake->yPos);
 	printf("  ");
 	snake->xPos -= 2;
