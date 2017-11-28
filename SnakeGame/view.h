@@ -1,5 +1,5 @@
 #ifndef _VIEW_H__
-#define _VEIW_H__
+#define _VIEW_H__
 
 #include<conio.h>
 #include<windows.h>
@@ -12,8 +12,26 @@
 #define BACKGROUNDRIGHTDOWNXPOS 60
 #define BACKGROUNDRIGHTDOWNYPOS 26
 
+
+typedef struct _item {
+
+	unsigned int xPos;
+	unsigned int yPos;
+
+}Item;
+
+typedef struct _map {
+
+	Item* item;
+
+}Map;
+
 void moveCursor(int xPos, int yPos);
 void drawMap();
+void createItemInMap(Map* map);
+
+Map * initializeMap();
+Item* createItem(int xPos, int yPos);
 
 
 #endif

@@ -14,7 +14,7 @@ snakeElem * makeSnakeElem(int xPos, int yPos) {
 	return snake;
 }
 
-Snake* InitializeSnake() {
+Snake* initializeSnake() {
 	
 	Snake * snake = (Snake*)malloc(sizeof(Snake));
 	snakeElem* firstSnakeElem = makeSnakeElem(BACKGROUNDRIGHTDOWNXPOS + 1, BACKGROUNDRIGHTDOWNYPOS / 2);

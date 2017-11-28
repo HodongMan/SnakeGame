@@ -27,10 +27,11 @@ typedef struct {
 
 	snakeElem* head;
 	snakeElem* tail;
+
 }Snake;
 
-Snake* InitializeSnake();
-snakeElem* makeSnakeElem();
+Snake* initializeSnake();
+snakeElem* makeSnakeElem(int xPos, int yPos);
 void moveSnake(snakeElem* snake);
 int isSnakeInTheMap(snakeElem* snake);
 

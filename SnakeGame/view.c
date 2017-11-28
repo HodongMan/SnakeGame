@@ -1,4 +1,7 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
 #include"view.h"
 
 inline void moveCursor(int xPos, int yPos) {
@@ -47,4 +50,38 @@ void drawMap() {
 	end = clock();
 	moveCursor(72, 27);
 	printf("%.3lf ¹Ð¸®ÃÊ", (double)(end - start));
+}
+
+
+void createItemInMap(Map* map) {
+
+	unsigned int xPos, yPos;
+	
+	srand(time(NULL));
+
+	xPos = (rand() % (BACKGROUNDRIGHTDOWNXPOS * 2 - 10)) + BACKGROUNDLEFTUPXPOS - 2;
+	yPos = (rand() % (BACKGROUNDRIGHTDOWNYPOS)) + BACKGROUNDLEFTUPYPOS - 2;
+
+	map->item = createItem(xPos, yPos);
+	
+}
+
+Item* createItem(int xPos, int yPos) {
+
+	Item* item = (Item*)malloc(sizeof(Item));
+	item->xPos = xPos;
+	item->yPos = yPos;
+	moveCursor(xPos, yPos);
+	printf("¤·");
+	moveCursor(0, 0);
+
+	return item;
+}
+
+Map* initializeMap() {
+	
+	Map* map = (Map*)malloc(sizeof(Map));
+	map->item = NULL;
+
+	return map;
 }
