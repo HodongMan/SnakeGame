@@ -35,6 +35,8 @@ snakeElem* makeSnakeElem(int xPos, int yPos);
 void moveSnake(snakeElem* snake);
 int isSnakeInTheMap(snakeElem* snake);
 
+void getItemBySnake(Snake* snake, Map* map);
+
 
 static inline void moveUp(snakeElem * snake);
 static inline void moveDown(snakeElem * snake);

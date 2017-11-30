@@ -23,6 +23,7 @@ typedef struct _item {
 typedef struct _map {
 
 	Item* item;
+	unsigned int total_score;
 
 }Map;
 
@@ -32,6 +33,10 @@ void createItemInMap(Map* map);
 
 Map * initializeMap();
 Item* createItem(int xPos, int yPos);
+void setScoreInScreen(Map* map, int score);
+
+
+static int makeOddNumber(int number);
 
 
 #endif

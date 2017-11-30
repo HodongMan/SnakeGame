@@ -16,9 +16,6 @@ inline void moveCursor(int xPos, int yPos) {
 void drawMap() {
 
 	int xPos, yPos;
-	clock_t start, end;
-
-	start = clock();
 
 	moveCursor(BACKGROUNDLEFTUPXPOS, BACKGROUNDLEFTUPYPOS);
 
@@ -47,9 +44,7 @@ void drawMap() {
 		moveCursor(BACKGROUNDRIGHTDOWNXPOS * 2 - BACKGROUNDLEFTUPXPOS - 1, yPos);
 		printf("┃");
 	}
-	end = clock();
-	moveCursor(72, 27);
-	printf("%.3lf 밀리초", (double)(end - start));
+	
 }
 
 
@@ -59,11 +54,20 @@ void createItemInMap(Map* map) {
 	
 	srand(time(NULL));
 
-	xPos = (rand() % (BACKGROUNDRIGHTDOWNXPOS * 2 - 10)) + BACKGROUNDLEFTUPXPOS - 2;
-	yPos = (rand() % (BACKGROUNDRIGHTDOWNYPOS)) + BACKGROUNDLEFTUPYPOS - 2;
+	xPos = makeOddNumber((rand() % (BACKGROUNDRIGHTDOWNXPOS * 2 - 10)) + BACKGROUNDLEFTUPXPOS - 2);
+	yPos = makeOddNumber((rand() % (BACKGROUNDRIGHTDOWNYPOS)) + BACKGROUNDLEFTUPYPOS - 2);
 
 	map->item = createItem(xPos, yPos);
 	
+}
+
+static int makeOddNumber(int number) {
+	
+	if (number % 2 == 0) {
+		return number - 1;
+	}
+
+	return number;
 }
 
 Item* createItem(int xPos, int yPos) {
@@ -72,7 +76,7 @@ Item* createItem(int xPos, int yPos) {
 	item->xPos = xPos;
 	item->yPos = yPos;
 	moveCursor(xPos, yPos);
-	printf("ㅇ");
+	printf("o");
 	moveCursor(0, 0);
 
 	return item;
@@ -82,6 +86,15 @@ Map* initializeMap() {
 	
 	Map* map = (Map*)malloc(sizeof(Map));
 	map->item = NULL;
+	map->total_score = 0;
 
 	return map;
+}
+
+void setScoreInScreen(Map* map, int score) {
+	
+	moveCursor(72, 27);
+	map->total_score += score;
+	printf("현재 점수는 %d 입니다.", map->total_score);
+
 }

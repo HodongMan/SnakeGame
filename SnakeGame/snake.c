@@ -70,6 +70,15 @@ int isSnakeInTheMap(snakeElem* snake) {
 	return TRUE;
 }
 
+void getItemBySnake(Snake* snake, Map* map) {
+
+	if ((snake->head->xPos == map->item->xPos) && (snake->head->yPos == map->item->yPos)) {
+		setScoreInScreen(map, 30);
+		free(map->item);
+		createItemInMap(map);
+	}
+}
+
 static inline void moveUp(snakeElem * snake) {
 	moveCursor(snake->xPos, snake->yPos);
 	printf("  ");
