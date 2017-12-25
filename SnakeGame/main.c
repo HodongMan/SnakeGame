@@ -5,6 +5,7 @@ int main()
 {
 	Snake* snake;
 	Map* map;
+	snakeElem* temp;
 
 	drawMap();
 	snake = initializeSnake();
@@ -13,12 +14,24 @@ int main()
 	createItemInMap(map);
 	setScoreInScreen(map, 0);
 
-	while (1) {
+	while (TRUE) {
 		moveSnake(snake->head);
 		if (!isSnakeInTheMap(snake->head)) {
 			break;
 		}
 		getItemBySnake(snake, map);
+	}
+	temp = snake->head;
+	while (TRUE) {
+		
+		
+		printf("%d %d\n", temp->xPos, temp->yPos);
+		if (temp->next == NULL) {
+			break;
+		}
+		else {
+			temp = temp->next;
+		}
 	}
 	return 0;
 	

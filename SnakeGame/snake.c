@@ -41,6 +41,7 @@ Snake* initializeSnake() {
 void moveSnake(snakeElem * snake) {
 
 	int pressed_key;
+	snakeElem* temp;
 
 	
 	if (_kbhit()) {
@@ -70,6 +71,8 @@ void moveSnake(snakeElem * snake) {
 		}
 	}
 	else {
+
+		
 		snake->moveTo(snake);
 		Sleep(100);
 	}
@@ -92,8 +95,49 @@ void getItemBySnake(Snake* snake, Map* map) {
 	if ((snake->head->xPos == map->item->xPos) && (snake->head->yPos == map->item->yPos)) {
 		setScoreInScreen(map, 30);
 		free(map->item);
+		addSnakeNext(snake);
 		createItemInMap(map);
 	}
+}
+
+static inline void addSnakeNext(Snake* snake) {
+	
+	snakeElem* newSnake;
+	snakeElem* temp;
+
+	if ((newSnake = (snakeElem*)malloc(sizeof(snakeElem))) == NULL) {
+		fprintf(stderr, "SYSTEM ERROR");
+		return;
+	}
+
+	snake->tail->next = newSnake;
+	newSnake->prev = snake->tail;
+	newSnake->next = NULL;
+	snake->tail = newSnake;
+
+	newSnake->moveTo = newSnake->prev->moveTo;
+	newSnake->xPos = newSnake->prev->xPos;
+	newSnake->yPos = newSnake->prev->yPos;
+
+	/*
+	temp = snake->head;
+	while (hasNextSnake(temp)) {
+	
+		temp->moveTo(temp);
+		temp = temp->next;
+	}
+
+	*/
+
+}
+
+static inline int hasNextSnake(snakeElem* snake) {
+	
+	if (snake->next != NULL) {
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 static inline void moveUp(snakeElem * snake) {

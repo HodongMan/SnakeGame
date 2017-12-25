@@ -39,6 +39,8 @@ int isSnakeInTheMap(snakeElem* snake);
 
 void getItemBySnake(Snake* snake, Map* map);
 
+static inline int hasNextSnake(snakeElem* snake);
+static inline void  addSnakeNext(Snake* snake);
 
 static inline void moveUp(snakeElem * snake);
 static inline void moveDown(snakeElem * snake);
