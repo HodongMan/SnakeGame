@@ -21,6 +21,8 @@ typedef struct _snakeElem{
 	struct _snakeElem* prev;
 	struct _snakeElem* next;
 
+	void (*moveTo)(struct _snakeElem*);
+
 }snakeElem;
 
 typedef struct {

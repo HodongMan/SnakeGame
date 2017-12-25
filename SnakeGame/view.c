@@ -20,7 +20,7 @@ void drawMap() {
 	moveCursor(BACKGROUNDLEFTUPXPOS, BACKGROUNDLEFTUPYPOS);
 
 	printf("¦®");
-	for (xPos = BACKGROUNDLEFTUPXPOS + 1; xPos < BACKGROUNDRIGHTDOWNXPOS; xPos++) {
+	for (xPos = BACKGROUNDLEFTUPXPOS + 1; xPos < (BACKGROUNDRIGHTDOWNXPOS * 2) - 10; xPos++) {
 		printf("¦¬");
 	}
 
@@ -34,7 +34,7 @@ void drawMap() {
 	moveCursor(BACKGROUNDLEFTUPXPOS, BACKGROUNDRIGHTDOWNYPOS);
 	printf("¦±");
 
-	for (xPos = BACKGROUNDLEFTUPXPOS + 1; xPos < BACKGROUNDRIGHTDOWNXPOS; xPos++) {
+	for (xPos = BACKGROUNDLEFTUPXPOS + 1; xPos < (BACKGROUNDRIGHTDOWNXPOS * 2) - 10; xPos++) {
 		printf("¦¬");
 	}
 
@@ -54,14 +54,14 @@ void createItemInMap(Map* map) {
 	
 	srand(time(NULL));
 
-	xPos = makeOddNumber((rand() % (BACKGROUNDRIGHTDOWNXPOS * 2 - 10)) + BACKGROUNDLEFTUPXPOS - 2);
-	yPos = makeOddNumber((rand() % (BACKGROUNDRIGHTDOWNYPOS)) + BACKGROUNDLEFTUPYPOS - 2);
+	xPos = makeOddNumber((rand() % (BACKGROUNDRIGHTDOWNXPOS * 2 - 20)) + BACKGROUNDLEFTUPXPOS);
+	yPos = makeOddNumber((rand() % (BACKGROUNDRIGHTDOWNYPOS)) + BACKGROUNDLEFTUPYPOS);
 
 	map->item = createItem(xPos, yPos);
 	
 }
 
-static int makeOddNumber(int number) {
+static inline int makeOddNumber(int number) {
 	
 	if (number % 2 == 0) {
 		return number - 1;
@@ -72,11 +72,16 @@ static int makeOddNumber(int number) {
 
 Item* createItem(int xPos, int yPos) {
 
-	Item* item = (Item*)malloc(sizeof(Item));
+	Item* item;
+
+	if ((item = (Item*)malloc(sizeof(Item))) == NULL) {
+		fprintf(stderr, "SYSTEM ERROR");
+		return NULL;
+	}
 	item->xPos = xPos;
 	item->yPos = yPos;
 	moveCursor(xPos, yPos);
-	printf("o");
+	printf("¡Û");
 	moveCursor(0, 0);
 
 	return item;
@@ -84,7 +89,12 @@ Item* createItem(int xPos, int yPos) {
 
 Map* initializeMap() {
 	
-	Map* map = (Map*)malloc(sizeof(Map));
+	Map* map;
+
+	if ((map = (Map*)malloc(sizeof(Map))) == NULL) {
+		fprintf(stderr, "SYSTEM ERROR");
+		return NULL;
+	}
 	map->item = NULL;
 	map->total_score = 0;
 
